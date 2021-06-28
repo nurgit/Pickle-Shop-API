@@ -23,12 +23,11 @@ class ProductResource extends JsonResource
             'test'=>$this->test,
             'detail'=>$this->detail,
             'price'=>$this->price,
-            //'stock'=> when($this->strtok==0, 'Out of stock'),
             'stock'=>$this->stock==0 ?'Out Of Stock' :$this->stock ,
 
             'hrer' =>[
 
-            ]
+            ],
 
         ];
     }
