@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Product;
 
+use App\Models\Model\Product;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProductResource extends JsonResource
@@ -16,12 +17,18 @@ class ProductResource extends JsonResource
     {
 
         return [
+            'id'=>$this->id,
             'name'=>$this->name,
             'weight'=>$this->weight,
             'test'=>$this->test,
             'detail'=>$this->detail,
             'price'=>$this->price,
-            'stock'=>$this->stock,
+            //'stock'=> when($this->strtok==0, 'Out of stock'),
+            'stock'=>$this->stock==0 ?'Out Of Stock' :$this->stock ,
+
+            'hrer' =>[
+
+            ]
 
         ];
     }
