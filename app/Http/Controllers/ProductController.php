@@ -8,7 +8,9 @@ use App\Models\Model\Product;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
+use Symfony\Component\HttpFoundation\Response;
+
+use function GuzzleHttp\Promise\all;
 
 class ProductController extends Controller
 {
@@ -38,7 +40,7 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductRequest $request)
+    public function store(Request $request)
     {
         $product= new Product();
         $product->name=$request->name;
@@ -50,7 +52,7 @@ class ProductController extends Controller
         $product->save();
        return response([
            'data'=>new ProductResource($product)
-       ],HttpFoundationResponse::HTTP_CREATED);
+       ],Response::HTTP_CREATED);
     }
 
     /**
@@ -61,9 +63,8 @@ class ProductController extends Controller
      */
     public function show(Product $product, $id)
     {
-        $oneProduct= Product::find($id);
-        //return $p;
-        return new ProductResource($oneProduct);
+        $getProduct= Product::find($id);
+        return new ProductResource($getProduct);
     }
 
     /**
@@ -84,10 +85,18 @@ class ProductController extends Controller
      * @param  \App\Models\Model\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, Product $product, $id)
     {
-        //
+      //  return request();
+        $getProduct= Product::find($id);
+         $getProduct->update($request->all());
+         return response([
+            'data'=>new ProductResource ($getProduct)
+        ],Response::HTTP_CREATED);
     }
+
+
+    
 
     /**
      * Remove the specified resource from storage.
