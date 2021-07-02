@@ -22,8 +22,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['prefix'=>'/products'],function(){
-    Route::get('',[ProductController::class,'index'])->name('products');
-    Route::post('',[ProductController::class,'store'])->name('products');
+    Route::get('/',[ProductController::class,'index'])->name('products');
+    Route::POST('/',[ProductController::class,'store'])->name('products');
     Route::get('/{id}',[ProductController::class,'show'])->name('products.show');
     Route::put('/{id}',[ProductController::class,'update'])->name('products.update');
     Route::delete('/{id}',[ProductController::class,'destory'])->name('products.destory');

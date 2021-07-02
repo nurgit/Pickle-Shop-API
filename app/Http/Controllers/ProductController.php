@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 use App\Http\Resources\product\ProductCollection;
+use App\Http\Requests\ProductRequest;
 use App\Http\Resources\Product\ProductResource;
 use App\Models\Model\Product;
+
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 
 class ProductController extends Controller
 {
@@ -35,9 +38,19 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        //
+        $product= new Product();
+        $product->name=$request->name;
+        $product->weight=$request->weight;
+        $product->test=$request->test;
+        $product->detail=$request->detail;
+        $product->price=$request->price;
+        $product->stock=$request->stock;
+        $product->save();
+       return response([
+           'data'=>new ProductResource($product)
+       ],HttpFoundationResponse::HTTP_CREATED);
     }
 
     /**

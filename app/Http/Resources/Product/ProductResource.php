@@ -25,7 +25,7 @@ class ProductResource extends JsonResource
             'price'=>$this->price,
             'stock'=>$this->stock==0 ?'Out Of Stock' :$this->stock ,
 
-            'hrer' =>[
+            'href' =>[
 
             ],
 
